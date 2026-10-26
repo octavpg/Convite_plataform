@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooler de Supabase (puerto 6543, modo transacción) para la app en runtime
+  url       = env("DATABASE_URL")
+  // Conexión directa (puerto 5432) para migraciones
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────── Enums ───────────────────────────────
+
+enum PaymentStatus {
+  PENDING
+  PAID
+}
+
+enum GuestStatus {
+  INVITED
+  CONFIRMED
+  DECLINED
+}
+
+// ─────────────────────────────── Modelos ──────────────────────────────
+
+/// Anfitrión. `id` es el mismo UUID de `auth.users` en Supabase (no se autogenera).
+model User {
+  id        String   @id @db.Uuid
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  events Event[]
+
+  @@map("users")
+}
+
+model Event {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  hostId      String   @db.Uuid
+  title       String
+  description String?
+  eventDate   DateTime @db.Timestamptz(3)
+  location    String
+
+  coverImage    String? // URL pública en Supabase Storage
+  albumFolderId String? // Carpeta/prefijo del álbum colaborativo en Storage
+
+  paymentStatus           PaymentStatus @default(PENDING)
+  paidAt                  DateTime?     @db.Timestamptz(3)
+  stripeCheckoutSessionId String?       @unique
+
+  // PIN del staff: solo se guarda el hash. El bloqueo por intentos es el control real.
+  receptionPinHash  String
+  pinFailedAttempts Int       @default(0)
+  pinLockedUntil    DateTime? @db.Timestamptz(3)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  host   User    @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  guests Guest[]
+
+  @@index([hostId, eventDate])
+  @@map("events")
+}
+
+model Guest {
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eventId String @db.Uuid
+
+  fullName String
+  phone    String // Formato E.164, ej. +529991234567
+
+  totalPasses    Int
+  admittedPasses Int         @default(0)
+  status         GuestStatus @default(INVITED)
+
+  /// Va en la URL de la invitación (se envía por WhatsApp). Nunca da acceso al QR por sí solo.
+  urlToken String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  /// Contenido del QR. Solo se entrega al invitado cuando status = CONFIRMED.
+  qrToken  String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  invitationSentAt DateTime? @db.Timestamptz(3)
+  respondedAt      DateTime? @db.Timestamptz(3)
+  lastScanAt       DateTime? @db.Timestamptz(3)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId, status])
+  @@map("guests")
+}
+
+/// Registro de eventos de Stripe ya procesados (idempotencia del webhook).
+model StripeWebhookEvent {
+  id          String   @id // evt_... de Stripe
+  type        String
+  processedAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@map("stripe_webhook_events")
+}

@@ -1,0 +1,109 @@
+{
+  "users": [
+    {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "email": "demo@convite.mx",
+      "name": "Ana y Luis (Demo)",
+      "passwordHash": "63c0e34920e8e6e6afefbc67bcccc8a753c74d4453e0a1a19ff9e585b58b86f2",
+      "createdAt": "2026-10-26T18:20:07.446Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "6a65ecdd-e892-4984-80f3-2e29a913e04a",
+      "hostId": "11111111-1111-4111-8111-111111111111",
+      "title": "XV lupis",
+      "description": "Formal Riguroso",
+      "eventDate": "2026-12-20T02:00:00.000Z",
+      "location": "Los Brondos",
+      "paymentStatus": "PAID",
+      "receptionPin": "1111",
+      "receptionPinHash": "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",
+      "pinFailedAttempts": 0,
+      "pinLockedUntil": null,
+      "createdAt": "2026-10-26T18:21:32.571Z",
+      "updatedAt": "2026-10-26T18:21:32.571Z"
+    },
+    {
+      "id": "22222222-2222-4222-8222-222222222222",
+      "hostId": "11111111-1111-4111-8111-111111111111",
+      "title": "Boda de Ana y Luis",
+      "description": "Recepción y cena en Hacienda Teya. Código de vestimenta: Formal Riguroso / Guayabera de gala.",
+      "eventDate": "2026-11-14T20:00:00.000Z",
+      "location": "Hacienda Teya, Mérida, Yucatán",
+      "paymentStatus": "PAID",
+      "receptionPin": "1234",
+      "receptionPinHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "pinFailedAttempts": 0,
+      "pinLockedUntil": null,
+      "createdAt": "2026-10-26T18:20:07.446Z",
+      "updatedAt": "2026-10-26T18:20:07.446Z"
+    }
+  ],
+  "guests": [
+    {
+      "id": "33333333-3333-4333-8333-333333333331",
+      "eventId": "22222222-2222-4222-8222-222222222222",
+      "fullName": "Familia Pérez Garza",
+      "phone": "+529991234567",
+      "totalPasses": 4,
+      "admittedPasses": 0,
+      "status": "CONFIRMED",
+      "urlToken": "44444444-4444-4444-8444-444444444441",
+      "qrToken": "55555555-5555-4555-8555-555555555551",
+      "invitationSentAt": "2026-10-26T18:20:07.446Z",
+      "respondedAt": "2026-10-26T18:20:07.446Z",
+      "lastScanAt": null,
+      "createdAt": "2026-10-26T18:20:07.446Z",
+      "updatedAt": "2026-10-26T18:20:07.446Z"
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333332",
+      "eventId": "22222222-2222-4222-8222-222222222222",
+      "fullName": "Carlos Méndez y acompañante",
+      "phone": "+529997654321",
+      "totalPasses": 2,
+      "admittedPasses": 0,
+      "status": "INVITED",
+      "urlToken": "44444444-4444-4444-8444-444444444442",
+      "qrToken": "55555555-5555-4555-8555-555555555552",
+      "invitationSentAt": "2026-10-26T18:20:07.446Z",
+      "respondedAt": null,
+      "lastScanAt": null,
+      "createdAt": "2026-10-26T18:20:07.446Z",
+      "updatedAt": "2026-10-26T18:20:07.446Z"
+    },
+    {
+      "id": "33333333-3333-4333-8333-333333333333",
+      "eventId": "22222222-2222-4222-8222-222222222222",
+      "fullName": "Familia Cámara Peón",
+      "phone": "+529999887766",
+      "totalPasses": 5,
+      "admittedPasses": 3,
+      "status": "CONFIRMED",
+      "urlToken": "44444444-4444-4444-8444-444444444443",
+      "qrToken": "55555555-5555-4555-8555-555555555553",
+      "invitationSentAt": "2026-10-26T18:20:07.446Z",
+      "respondedAt": "2026-10-26T18:20:07.446Z",
+      "lastScanAt": "2026-10-26T18:20:07.446Z",
+      "createdAt": "2026-10-26T18:20:07.446Z",
+      "updatedAt": "2026-10-26T18:20:07.446Z"
+    },
+    {
+      "id": "f28c224b-a32f-4523-b760-ce1c6f4fc4ef",
+      "eventId": "6a65ecdd-e892-4984-80f3-2e29a913e04a",
+      "fullName": "Familia Perez",
+      "phone": "+9331341301",
+      "totalPasses": 3,
+      "admittedPasses": 0,
+      "status": "DECLINED",
+      "urlToken": "8d3fe873-1974-4a38-a5f0-d978b4855737",
+      "qrToken": "11a9083b-71af-4a3e-a3d4-357f385ecb3d",
+      "invitationSentAt": "2026-10-26T18:21:58.265Z",
+      "respondedAt": "2026-10-26T18:23:37.946Z",
+      "lastScanAt": null,
+      "createdAt": "2026-10-26T18:21:58.265Z",
+      "updatedAt": "2026-10-26T18:23:37.946Z"
+    }
+  ]
+}
